@@ -1,0 +1,316 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Documentations",
+    "description": "List api Dansmultipro test",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Dio Yoga Pratama",
+      "email": "dyopratama6@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3030",
+      "description": "local"
+    }
+  ],
+
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication"
+    },
+    {
+      "name": "Jobs",
+      "description": "API For Jobs"
+    }
+  ],
+
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register Authentication",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "yourname"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "demo@mail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "yourpasword"
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "example": "098976989"
+                  },
+                  "gender": {
+                    "type": "string",
+                    "example": "L/P"
+                  },
+                  "username": {
+                    "type": "string",
+                    "example": "yourusername"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "phone_number",
+                  "gender",
+                  "username"
+                ]
+              }
+            }
+          },
+          "description": ""
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "operationId": "Registration"
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login",
+        "operationId": "login",
+        "description": "Login Authentication",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "yourusername"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "yourpasword"
+                  }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          },
+          "description": ""
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            },
+            "in": "header",
+            "name": "Accept",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request (Invalid request body)"
+          },
+          "404": {
+            "description": "Not Found (User not found or OAuth not valid)"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "summary": "Logout",
+        "operationId": "logout",
+        "description": "Logout",
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            },
+            "in": "header",
+            "name": "Accept",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request (Invalid request body)"
+          },
+          "404": {
+            "description": "Not Found (User not found or OAuth not valid)"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/refreshToken": {
+      "get": {
+        "summary": "refreshToken",
+        "operationId": "refreshToken",
+        "description": "refreshToken",
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            },
+            "in": "header",
+            "name": "Accept",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request (Invalid request body)"
+          },
+          "404": {
+            "description": "Not Found (User not found or OAuth not valid)"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/middleware/jobs": {
+      "get": {
+        "summary": "Get all Jobs",
+        "tags": ["Jobs"],
+        "parameters": [
+          {
+            "name": "description",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fulltime",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "description": "Get all jobs",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "operationId": "GetAllJobs"
+      }
+    },
+    "/middleware/job-detail": {
+      "get": {
+        "summary": "Detail Job",
+        "tags": ["Jobs"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "description": "Detail job",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "query",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "operationId": "GetOneDetail"
+      }
+    }
+  },
+
+  "components": {
+    "securitySchemes": {
+      "Authorization": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
